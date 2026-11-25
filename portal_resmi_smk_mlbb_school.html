@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMK MLBB School | Sekolah Kejuruan Esports & Industri Game</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Rajdhani (untuk nuansa Esports/Futuristik) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        mlbb: {
+                            navy: '#0B1021',
+                            card: '#121933',
+                            gold: '#F59E0B',
+                            goldLight: '#FCD34D',
+                            cyan: '#06B6D4',
+                            cyanGlow: '#22D3EE',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B1021;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+        /* Efek Glassmorphism & Cyberpunk Glow */
+        .glass-card {
+            background: rgba(18, 25, 51, 0.72);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(6, 182, 212, 0.22);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+        }
+        .glass-card:hover {
+            border-color: rgba(245, 158, 11, 0.6);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.18);
+        }
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(6, 182, 212, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(6, 182, 212, 0.06) 1px, transparent 1px);
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 50%, #D97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cyan-gradient-text {
+            background: linear-gradient(135deg, #67E8F9 0%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B1021;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F59E0B;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-mlbb-gold selection:text-mlbb-navy">
+
+    <!-- Notifikasi Toast Kustom (Pengganti alert) -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- ==================== 1. NAVBAR ==================== -->
+    <header class="fixed top-0 w-full z-40 glass-card border-b border-cyan-500/20 border-t-0 border-x-0 rounded-none">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo SMK MLBB School -->
+                <a href="#beranda" class="flex items-center gap-3 group">
+                    <div class="relative w-11 h-11 rounded-xl bg-gradient-to-br from-mlbb-gold to-amber-700 p-0.5 shadow-lg shadow-amber-500/25 group-hover:scale-105 transition-transform">
+                        <div class="w-full h-full bg-mlbb-navy rounded-[10px] flex items-center justify-center relative overflow-hidden">
+                            <i class="fa-solid fa-shield-halved text-mlbb-gold text-xl"></i>
+                            <i class="fa-solid fa-khanda text-mlbb-cyan text-xs absolute"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-display font-extrabold text-xl sm:text-2xl tracking-wider text-white block leading-none">
+                            SMK <span class="text-mlbb-gold">MLBB</span>
+                        </span>
+                        <span class="text-[10px] tracking-[0.22em] text-mlbb-cyan font-semibold uppercase">Esports Academy</span>
+                    </div>
+                </a>
+
+                <!-- Menu Navigasi Desktop -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="#beranda" class="text-slate-300 hover:text-mlbb-gold transition-colors">Beranda</a>
+                    <a href="#jurusan" class="text-slate-300 hover:text-mlbb-gold transition-colors">Jurusan & Role</a>
+                    <a href="#kurikulum" class="text-slate-300 hover:text-mlbb-gold transition-colors">Kurikulum</a>
+                    <a href="#prestasi" class="text-slate-300 hover:text-mlbb-gold transition-colors">Prestasi & Roster</a>
+                    <a href="#ppdb" class="text-slate-300 hover:text-mlbb-gold transition-colors">PPDB Online</a>
+                </nav>
+
+                <!-- Tombol CTA Cepat & Hamburger Menu -->
+                <div class="flex items-center gap-3">
+                    <a href="#ppdb" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-mlbb-gold to-amber-600 hover:from-amber-400 hover:to-mlbb-gold text-mlbb-navy font-bold text-sm shadow-lg shadow-amber-500/30 transition-all transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>Daftar PPDB</span>
+                    </a>
+                    <button id="mobile-menu-btn" aria-label="Buka Menu" class="md:hidden p-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-200 hover:text-mlbb-gold">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-mlbb-navy/95 backdrop-blur-xl border-b border-cyan-500/20 px-4 pt-2 pb-6 space-y-2">
+            <a href="#beranda" class="mobile-link block px-4 py-3 rounded-xl text-slate-200 hover:bg-slate-800/60 hover:text-mlbb-gold font-medium">Beranda</a>
+            <a href="#jurusan" class="mobile-link block px-4 py-3 rounded-xl text-slate-200 hover:bg-slate-800/60 hover:text-mlbb-gold font-medium">Jurusan & Role</a>
+            <a href="#kurikulum" class="mobile-link block px-4 py-3 rounded-xl text-slate-200 hover:bg-slate-800/60 hover:text-mlbb-gold font-medium">Kurikulum</a>
+            <a href="#prestasi" class="mobile-link block px-4 py-3 rounded-xl text-slate-200 hover:bg-slate-800/60 hover:text-mlbb-gold font-medium">Prestasi & Roster</a>
+            <a href="#ppdb" class="mobile-link block px-4 py-3 rounded-xl text-slate-200 hover:bg-slate-800/60 hover:text-mlbb-gold font-medium">PPDB Online</a>
+            <div class="pt-2">
+                <a href="#ppdb" class="mobile-link w-full flex justify-center items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-mlbb-gold to-amber-600 text-mlbb-navy font-bold text-sm">
+                    <i class="fa-solid fa-bolt"></i> Daftar PPDB Sekarang
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== 2. HERO SECTION ==================== -->
+    <section id="beranda" class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 cyber-grid overflow-hidden">
+        <!-- Ambient Background Orbs -->
+        <div class="absolute top-20 left-1/4 w-96 h-96 bg-mlbb-cyan/15 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
+        <div class="absolute bottom-10 right-1/4 w-96 h-96 bg-mlbb-gold/15 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <!-- Kolom Kiri: Copywriting & CTA -->
+                <div class="lg:col-span-7 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-mlbb-cyan text-xs sm:text-sm font-semibold mb-6">
+                        <span class="w-2 h-2 rounded-full bg-mlbb-cyan animate-ping"></span>
+                        <span>TERAKREDITASI A • PENERIMAAN PESERTA DIDIK BARU 2026/2027</span>
+                    </div>
+
+                    <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight mb-6">
+                        Cetak Generasi <span class="gold-gradient-text">Pro Player</span> & <span class="cyan-gradient-text">Industri Esports</span> Masa Depan
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
+                        Sekolah Menengah Kejuruan pertama berbasis ekosistem <strong>Mobile Legends: Bang Bang</strong> yang mengintegrasikan Kurikulum Merdeka Nasional dengan standar pelatihan intensif tim profesional MDL & MPL.
+                    </p>
+
+                    <!-- Tombol CTA -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12">
+                        <a href="#ppdb" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-mlbb-gold to-amber-600 hover:from-amber-400 hover:to-mlbb-gold text-mlbb-navy font-extrabold text-base shadow-xl shadow-amber-500/25 transition-all flex items-center justify-center gap-2.5 transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-gamepad"></i>
+                            <span>Daftar Seleksi Trial PPDB</span>
+                        </a>
+                        <a href="#jurusan" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-card hover:bg-slate-800/80 text-white font-semibold text-base transition-all flex items-center justify-center gap-2.5">
+                            <i class="fa-solid fa-compass text-mlbb-cyan"></i>
+                            <span>Eksplorasi Jurusan</span>
+                        </a>
+                    </div>
+
+                    <!-- Statistik Singkat -->
+                    <div class="grid grid-cols-3 gap-3 sm:gap-6 pt-6 border-t border-slate-800">
+                        <div class="glass-card p-3 sm:p-4 rounded-2xl text-center lg:text-left">
+                            <div class="font-display font-extrabold text-2xl sm:text-3xl text-mlbb-gold">100%</div>
+                            <div class="text-xs sm:text-sm text-slate-300 font-medium mt-0.5">Penyaluran Tim Pro & Industri</div>
+                        </div>
+                        <div class="glass-card p-3 sm:p-4 rounded-2xl text-center lg:text-left">
+                            <div class="font-display font-extrabold text-2xl sm:text-3xl text-mlbb-cyan">Eks-MPL</div>
+                            <div class="text-xs sm:text-sm text-slate-300 font-medium mt-0.5">Coach & Analyst Bersertifikat</div>
+                        </div>
+                        <div class="glass-card p-3 sm:p-4 rounded-2xl text-center lg:text-left">
+                            <div class="font-display font-extrabold text-2xl sm:text-3xl text-white">240Hz</div>
+                            <div class="text-xs sm:text-sm text-slate-300 font-medium mt-0.5">Gaming House & Arena Scrim</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan: Kartu Visual Arena / Status Akademi -->
+                <div class="lg:col-span-5 relative animate-float">
+                    <div class="glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden border-mlbb-gold/30">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-mlbb-gold/10 rounded-bl-full"></div>
+                        
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> GELOMBANG 1 DIBUKA
+                            </span>
+                            <span class="text-xs font-mono text-slate-400">NPSN: 20261337</span>
+                        </div>
+
+                        <!-- Visual SVG Emblem Esports -->
+                        <div class="my-4 flex justify-center">
+                            <div class="w-44 h-44 rounded-full bg-gradient-to-b from-cyan-500/20 to-amber-500/20 p-1 flex items-center justify-center border border-cyan-400/40 shadow-[0_0_40px_rgba(6,182,212,0.25)]">
+                                <svg viewBox="0 0 200 200" class="w-36 h-36 drop-shadow-[0_0_12px_rgba(245,158,11,0.5)]">
+                                    <defs>
+                                        <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#FCD34D"/>
+                                            <stop offset="50%" stop-color="#F59E0B"/>
+                                            <stop offset="100%" stop-color="#B45309"/>
+                                        </linearGradient>
+                                        <linearGradient id="coreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stop-color="#22D3EE"/>
+                                            <stop offset="100%" stop-color="#0284C7"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- Perisai Utama -->
+                                    <path d="M100 15 L170 45 L160 120 C155 155 100 185 100 185 C100 185 45 155 40 120 L30 45 Z" fill="#0B1021" stroke="url(#shieldGrad)" stroke-width="6"/>
+                                    <!-- Kristal Mythic Tengah -->
+                                    <polygon points="100,45 130,95 100,150 70,95" fill="url(#coreGrad)" opacity="0.9"/>
+                                    <polygon points="100,45 130,95 100,105 70,95" fill="#CFFAFE" opacity="0.6"/>
+                                    <!-- Bintang Akreditasi -->
+                                    <circle cx="100" cy="30" r="4" fill="#FCD34D"/>
+                                    <circle cx="85" cy="35" r="3" fill="#FCD34D"/>
+                                    <circle cx="115" cy="35" r="3" fill="#FCD34D"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="text-center mb-6">
+                            <h3 class="font-display font-bold text-2xl text-white">LAND OF DAWN CAMPUS</h3>
+                            <p class="text-xs text-slate-400 mt-1">Ijazah Resmi Kemendikdasmen + Sertifikat Kompetensi PBESI</p>
+                        </div>
+
+                        <!-- Mini Info Fasilitas -->
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900/70 border border-slate-800">
+                                <span class="text-slate-300 flex items-center gap-2"><i class="fa-solid fa-wifi text-mlbb-cyan"></i> Dedicated Fiber Ping</span>
+                                <span class="font-bold text-mlbb-cyan">1 - 3 ms</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900/70 border border-slate-800">
+                                <span class="text-slate-300 flex items-center gap-2"><i class="fa-solid fa-trophy text-mlbb-gold"></i> Beasiswa Prestasi</span>
+                                <span class="font-bold text-mlbb-gold">Min. Mythical Glory</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. PROGRAM KEAHLIAN (JURUSAN & ROLE) ==================== -->
+    <section id="jurusan" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-mlbb-cyan font-bold tracking-widest uppercase text-xs">Konsentrasi Keahlian</span>
+                <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white mt-2 mb-4">
+                    5 Jurusan & <span class="gold-gradient-text">Spesialisasi Role</span>
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base">
+                    Pilih jalur pendidikan sesuai bakat mekanik in-game maupun minat karier di balik layar industri esports global. Klik kartu jurusan untuk melihat kurikulum produktif dan prospek karier.
+                </p>
+            </div>
+
+            <!-- Grid 5 Kartu Jurusan -->
+            <div id="jurusan-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Kartu di-render via JavaScript agar interaktif dengan Modal -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. KURIKULUM & JADWAL HARIAN ==================== -->
+    <section id="kurikulum" class="py-20 bg-slate-950/50 border-y border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
+                <div>
+                    <span class="text-mlbb-gold font-bold tracking-widest uppercase text-xs">Sistem Pendidikan Terpadu</span>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white mt-2">
+                        Kurikulum & <span class="cyan-gradient-text">Jadwal Harian Siswa</span>
+                    </h2>
+                </div>
+
+                <!-- Tab Navigasi Interaktif -->
+                <div class="inline-flex p-1.5 rounded-2xl bg-slate-900 border border-slate-800 self-start lg:self-auto">
+                    <button onclick="switchScheduleTab('akademik')" id="tab-akademik" class="schedule-tab px-5 py-2.5 rounded-xl text-sm font-bold transition-all bg-mlbb-gold text-mlbb-navy shadow-md">
+                        <i class="fa-solid fa-book-open mr-1.5"></i> Pagi: Akademik Nasional
+                    </button>
+                    <button onclick="switchScheduleTab('esports')" id="tab-esports" class="schedule-tab px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-slate-300 hover:text-white">
+                        <i class="fa-solid fa-headset mr-1.5"></i> Siang-Sore: Praktik & Scrim
+                    </button>
+                </div>
+            </div>
+
+            <!-- Konten Tab Jadwal -->
+            <div id="schedule-content" class="grid md:grid-cols-2 gap-6">
+                <!-- Diisi dinamis oleh JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 5. PRESTASI & ALUMNI (HALL OF FAME) ==================== -->
+    <section id="prestasi" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-mlbb-gold font-bold tracking-widest uppercase text-xs">Hall of Fame & Roster Utama</span>
+                <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white mt-2 mb-4">
+                    Rekam Jejak <span class="gold-gradient-text">Juara Nasional</span>
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base">
+                    Tim kebanggaan sekolah <strong>"DAWN BREAKERS ESPORTS"</strong> telah mendominasi berbagai turnamen tingkat pelajar hingga kualifikasi liga semi-profesional.
+                </p>
+            </div>
+
+            <!-- Trophy Cabinet -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-mlbb-gold text-center">
+                    <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-500/15 flex items-center justify-center text-mlbb-gold text-2xl mb-4">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <span class="text-xs font-bold text-mlbb-gold uppercase">2025 • Nasional</span>
+                    <h3 class="font-display font-bold text-xl text-white mt-1">Juara 1 Liga Pelajar MLBB</h3>
+                    <p class="text-xs text-slate-400 mt-2">Mengalahkan 512 sekolah se-Indonesia dengan rekor win-rate 92%.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-mlbb-cyan text-center">
+                    <div class="w-14 h-14 mx-auto rounded-2xl bg-cyan-500/15 flex items-center justify-center text-mlbb-cyan text-2xl mb-4">
+                        <i class="fa-solid fa-medal"></i>
+                    </div>
+                    <span class="text-xs font-bold text-mlbb-cyan uppercase">2025 • Semi-Pro</span>
+                    <h3 class="font-display font-bold text-xl text-white mt-1">Top 4 MDL Open Qualifier</h3>
+                    <p class="text-xs text-slate-400 mt-2">Satu-satunya tim tingkat SMA/SMK yang menembus babak playoff terbuka.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-mlbb-gold text-center">
+                    <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-500/15 flex items-center justify-center text-mlbb-gold text-2xl mb-4">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <span class="text-xs font-bold text-mlbb-gold uppercase">2024 • Piala Menpora</span>
+                    <h3 class="font-display font-bold text-xl text-white mt-1">Juara 1 Esports Student Cup</h3>
+                    <p class="text-xs text-slate-400 mt-2">Penghargaan tambahan Best Coach & Best Jungler Turnamen.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-mlbb-cyan text-center">
+                    <div class="w-14 h-14 mx-auto rounded-2xl bg-cyan-500/15 flex items-center justify-center text-mlbb-cyan text-2xl mb-4">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <span class="text-xs font-bold text-mlbb-cyan uppercase">Alumni • Pro Scene</span>
+                    <h3 class="font-display font-bold text-xl text-white mt-1">18 Lulusan di Tim MDL/MPL</h3>
+                    <p class="text-xs text-slate-400 mt-2">Tersebar sebagai Pro Player, Assistant Coach, hingga Shoutcaster resmi.</p>
+                </div>
+            </div>
+
+            <!-- Profil Singkat Roster Utama Sekolah -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800">
+                    <div>
+                        <h3 class="font-display font-bold text-2xl text-white flex items-center gap-2">
+                            <i class="fa-solid fa-fire text-mlbb-gold"></i> Main Roster: SMK MLBB Prime
+                        </h3>
+                        <p class="text-xs text-slate-400">Siswa Kelas XI & XII yang mewakili sekolah di turnamen resmi</p>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-mlbb-cyan text-xs font-bold self-start sm:self-auto">
+                        AVG RANK: MYTHICAL IMMORTAL 185★
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <!-- Player 1 -->
+                    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 hover:border-mlbb-gold/50 transition-colors">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-mlbb-gold">EXP LANER</span>
+                            <span class="text-xs text-slate-500">XII-TML</span>
+                        </div>
+                        <h4 class="font-display font-bold text-xl text-white">DAWN.Kage</h4>
+                        <p class="text-xs text-slate-400 mt-1">Signature: Yu Zhong, Terizla, Benedetta</p>
+                    </div>
+                    <!-- Player 2 -->
+                    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 hover:border-mlbb-cyan/50 transition-colors">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-mlbb-cyan">JUNGLER</span>
+                            <span class="text-xs text-slate-500">XII-MMS</span>
+                        </div>
+                        <h4 class="font-display font-bold text-xl text-white">DAWN.Viper</h4>
+                        <p class="text-xs text-slate-400 mt-1">Signature: Fanny, Ling, Fredrinn</p>
+                    </div>
+                    <!-- Player 3 -->
+                    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 hover:border-mlbb-gold/50 transition-colors">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300">MID LANER</span>
+                            <span class="text-xs text-slate-500">XI-ADD</span>
+                        </div>
+                        <h4 class="font-display font-bold text-xl text-white">DAWN.Astra</h4>
+                        <p class="text-xs text-slate-400 mt-1">Signature: Valentina, Faramis, Luo Yi</p>
+                    </div>
+                    <!-- Player 4 -->
+                    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 hover:border-mlbb-gold/50 transition-colors">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-mlbb-gold">GOLD LANER</span>
+                            <span class="text-xs text-slate-500">XII-TML</span>
+                        </div>
+                        <h4 class="font-display font-bold text-xl text-white">DAWN.Zero</h4>
+                        <p class="text-xs text-slate-400 mt-1">Signature: Claude, Harith, Beatrix</p>
+                    </div>
+                    <!-- Player 5 -->
+                    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 hover:border-mlbb-cyan/50 transition-colors">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-mlbb-cyan">ROAMER (IGL)</span>
+                            <span class="text-xs text-slate-500">XII-MMS</span>
+                        </div>
+                        <h4 class="font-display font-bold text-xl text-white">DAWN.Aegis</h4>
+                        <p class="text-xs text-slate-400 mt-1">Signature: Tigreal, Mathilda, Chou</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. FORMULIR PPDB ONLINE INTERAKTIF ==================== -->
+    <section id="ppdb" class="py-20 bg-gradient-to-b from-mlbb-navy via-slate-900/80 to-mlbb-navy border-t border-cyan-500/20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-mlbb-gold text-xs font-bold uppercase tracking-wider">
+                    Penerimaan Peserta Didik Baru
+                </span>
+                <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white mt-3 mb-4">
+                    Formulir <span class="cyan-gradient-text">PPDB Online</span> & Seleksi Scrim
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base">
+                    Isi data diri dan profil akun Mobile Legends kamu dengan benar untuk mendapatkan <strong>Kartu Peserta Tes Trial & Wawancara</strong> secara otomatis.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Kolom Kiri: Form Pendaftaran -->
+                <div class="lg:col-span-7 glass-card rounded-3xl p-6 sm:p-8">
+                    <form id="ppdb-form" class="space-y-5" novalidate>
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="namaLengkap" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Nama Lengkap Siswa *</label>
+                                <input type="text" id="namaLengkap" required placeholder="Contoh: Raka Pratama"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-mlbb-cyan transition-colors">
+                            </div>
+                            <div>
+                                <label for="asalSmp" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Asal Sekolah (SMP/MTs) *</label>
+                                <input type="text" id="asalSmp" required placeholder="Contoh: SMPN 1 Bekasi"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-mlbb-cyan transition-colors">
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="nickname" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Nickname In-Game MLBB *</label>
+                                <input type="text" id="nickname" required placeholder="Contoh: Raka.exe"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-mlbb-gold transition-colors">
+                            </div>
+                            <div>
+                                <label for="idServer" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">ID & Server MLBB *</label>
+                                <input type="text" id="idServer" required placeholder="Contoh: 123456789 (2541)"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-mlbb-gold transition-colors">
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="rankTertinggi" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Rank Tertinggi (Highest) *</label>
+                                <select id="rankTertinggi" required
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-white focus:outline-none focus:border-mlbb-cyan transition-colors">
+                                    <option value="">-- Pilih Rank Tertinggi --</option>
+                                    <option value="Mythic (1 - 24 Bintang)">Mythic (1 - 24 Bintang)</option>
+                                    <option value="Mythical Honor (25 - 49 Bintang)">Mythical Honor (25 - 49 Bintang)</option>
+                                    <option value="Mythical Glory (50 - 99 Bintang)">Mythical Glory (50 - 99 Bintang)</option>
+                                    <option value="Mythical Immortal (100+ Bintang)">Mythical Immortal (100+ Bintang)</option>
+                                    <option value="Jalur Non-Player (Legend/Epic)">Jalur Non-Player (Legend / Epic)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="roleUtama" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Pilihan Role Utama *</label>
+                                <select id="roleUtama" required
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-white focus:outline-none focus:border-mlbb-cyan transition-colors">
+                                    <option value="">-- Pilih Role Utama --</option>
+                                    <option value="Roamer">Roamer</option>
+                                    <option value="Jungler">Jungler</option>
+                                    <option value="Mid Laner">Mid Laner</option>
+                                    <option value="Gold Laner">Gold Laner</option>
+                                    <option value="EXP Laner">EXP Laner</option>
+                                    <option value="Jalur Analyst / Caster / EO">Jalur Analyst / Caster / EO</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="pilihanJurusan" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Pilihan Program Keahlian (Jurusan) *</label>
+                            <select id="pilihanJurusan" required
+                                class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-white focus:outline-none focus:border-mlbb-gold transition-colors">
+                                <option value="">-- Pilih Jurusan Keahlian --</option>
+                                <option value="Teknik Mekanik & Lane (Gold / EXP Mastery)">Teknik Mekanik & Lane (Gold / EXP Mastery)</option>
+                                <option value="Manajemen Makro & Strategi (Jungler & Roamer Shotcalling)">Manajemen Makro & Strategi (Jungler & Roamer Shotcalling)</option>
+                                <option value="Analisis Data & Drafting (Coach & Analyst Esports)">Analisis Data & Drafting (Coach & Analyst Esports)</option>
+                                <option value="Broadcasting & Shoutcasting (Caster & Production)">Broadcasting & Shoutcasting (Caster & Production)</option>
+                                <option value="Manajemen Event & Tim Esports (Team Manager & EO)">Manajemen Event & Tim Esports (Team Manager & EO)</option>
+                            </select>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-mlbb-gold to-amber-600 hover:from-amber-400 hover:to-mlbb-gold text-mlbb-navy font-extrabold text-base shadow-lg shadow-amber-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                                <i class="fa-solid fa-id-card"></i>
+                                <span>Terbitkan Kartu Peserta Ujian Seleksi</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Kolom Kanan: Preview & Hasil Kartu Bukti Pendaftaran Digital -->
+                <div class="lg:col-span-5">
+                    <div id="card-placeholder" class="glass-card rounded-3xl p-8 border-dashed border-2 border-slate-700 text-center">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-slate-800/80 flex items-center justify-center text-slate-400 text-2xl mb-4">
+                            <i class="fa-solid fa-address-card"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white mb-2">Kartu Peserta Digital</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-6">
+                            Lengkapi formulir di samping untuk men-generate <strong>Kartu Ujian Trial & Scrim</strong> beserta nomor registrasi dan jadwal seleksi resmi Anda.
+                        </p>
+                        <div class="text-left bg-slate-950/60 rounded-2xl p-4 border border-slate-800 space-y-2 text-xs text-slate-400">
+                            <div class="font-bold text-mlbb-cyan uppercase mb-1">Tahapan Seleksi:</div>
+                            <p><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> Tes Mekanik 1v1 & Laning Phase</p>
+                            <p><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> Lobby Custom Scrim 5v5 (Komunikasi & Makro)</p>
+                            <p><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> Tes Psikotes & Wawancara Minat Bakat</p>
+                        </div>
+                    </div>
+
+                    <!-- Kartu Digital Aktif (Muncul setelah Submit) -->
+                    <div id="digital-id-card" class="hidden glass-card rounded-3xl overflow-hidden border-2 border-mlbb-gold shadow-[0_0_35px_rgba(245,158,11,0.25)]">
+                        <!-- Header Kartu -->
+                        <div class="bg-gradient-to-r from-mlbb-gold via-amber-500 to-amber-600 px-6 py-4 flex items-center justify-between text-mlbb-navy">
+                            <div class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-shield-halved text-xl"></i>
+                                <div>
+                                    <div class="font-display font-extrabold text-lg leading-none">SMK MLBB SCHOOL</div>
+                                    <div class="text-[10px] font-bold tracking-widest uppercase">Kartu Peserta Seleksi PPDB</div>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-lg bg-mlbb-navy text-mlbb-gold font-mono text-xs font-bold" id="card-reg-no">REG-2026-0000</span>
+                        </div>
+
+                        <!-- Body Kartu -->
+                        <div class="p-6 space-y-4 bg-gradient-to-b from-slate-900/90 to-mlbb-navy">
+                            <div class="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
+                                <div>
+                                    <span class="text-[10px] uppercase tracking-wider text-slate-400 block">Nama Calon Siswa</span>
+                                    <h4 id="card-nama" class="font-display font-bold text-2xl text-white">-</h4>
+                                    <span id="card-smp" class="text-xs text-mlbb-cyan font-medium">-</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[10px] uppercase tracking-wider text-slate-400 block">Role Utama</span>
+                                    <span id="card-role" class="inline-block mt-1 px-3 py-1 rounded-lg bg-cyan-500/20 border border-cyan-400/40 text-mlbb-cyan font-bold text-xs">-</span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+                                    <span class="text-slate-400 block mb-0.5">IGN & Server ID</span>
+                                    <span id="card-ign" class="font-bold text-white font-mono">-</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+                                    <span class="text-slate-400 block mb-0.5">Highest Rank</span>
+                                    <span id="card-rank" class="font-bold text-mlbb-gold">-</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs">
+                                <span class="text-slate-400 block mb-0.5">Jurusan Pilihan</span>
+                                <span id="card-jurusan" class="font-bold text-white">-</span>
+                            </div>
+
+                            <!-- Jadwal Tes Otomatis -->
+                            <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30">
+                                <div class="flex items-center justify-between text-xs mb-1">
+                                    <span class="font-bold text-mlbb-gold uppercase"><i class="fa-solid fa-calendar-check mr-1"></i> Jadwal Tes Trial & Scrim</span>
+                                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold text-[10px]">TERVERIFIKASI</span>
+                                </div>
+                                <p id="card-jadwal" class="text-sm font-bold text-white mt-1">Sabtu, 5 Desember 2026 • Pukul 13.00 WIB</p>
+                                <p class="text-[11px] text-slate-300 mt-0.5">Lokasi: Arena Scrim Lt. 2 / Custom Lobby Official</p>
+                            </div>
+
+                            <!-- Tombol Salin Nomor Registrasi -->
+                            <div class="flex gap-3 pt-1">
+                                <button type="button" id="copy-reg-btn" class="flex-1 py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                                    <i class="fa-regular fa-copy text-mlbb-cyan"></i> Salin No. Registrasi
+                                </button>
+                                <button type="button" onclick="resetPpdbForm()" class="py-2.5 px-4 rounded-xl border border-slate-700 hover:border-slate-500 text-slate-300 text-xs font-semibold transition-colors cursor-pointer">
+                                    Daftar Ulang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 7. FOOTER ==================== -->
+    <footer class="bg-slate-950 border-t border-slate-800/90 pt-16 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
+                <!-- Brand -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-mlbb-gold to-amber-700 flex items-center justify-center text-mlbb-navy">
+                            <i class="fa-solid fa-shield-halved text-lg"></i>
+                        </div>
+                        <span class="font-display font-extrabold text-2xl text-white">SMK <span class="text-mlbb-gold">MLBB</span> SCHOOL</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-md mb-6">
+                        Lembaga pendidikan menengah kejuruan berstandar industri esports yang mencetak atlet profesional, analis taktik, dan kreator konten gaming berkarakter serta berprestasi akademik.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <a href="#beranda" aria-label="Instagram" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 hover:border-mlbb-gold hover:text-mlbb-gold flex items-center justify-center text-slate-400 transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#beranda" aria-label="YouTube" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 hover:border-mlbb-gold hover:text-mlbb-gold flex items-center justify-center text-slate-400 transition-colors">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        <a href="#beranda" aria-label="TikTok" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 hover:border-mlbb-cyan hover:text-mlbb-cyan flex items-center justify-center text-slate-400 transition-colors">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="#beranda" aria-label="Discord" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 hover:border-mlbb-cyan hover:text-mlbb-cyan flex items-center justify-center text-slate-400 transition-colors">
+                            <i class="fa-brands fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Alamat Kampus -->
+                <div>
+                    <h4 class="font-display font-bold text-lg text-white mb-4 uppercase tracking-wider">Alamat Kampus</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-mlbb-gold mt-1"></i>
+                            <span>Jl. Land of Dawn No. 1, Kawasan Summarecon Esports Hub, Kota Bekasi, Jawa Barat 17142</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-clock text-mlbb-cyan"></i>
+                            <span>Senin - Sabtu: 07.00 - 17.00 WIB</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Kontak Admin PPDB -->
+                <div>
+                    <h4 class="font-display font-bold text-lg text-white mb-4 uppercase tracking-wider">Kontak Admin PPDB</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li class="flex items-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+                            <span>+62 812-2026-MLBB (Admin PPDB)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-mlbb-gold"></i>
+                            <span>ppdb@smkmlbb.sch.id</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-headset text-mlbb-cyan"></i>
+                            <span>Discord Resmi: discord.gg/smkmlbb</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+                <p>&copy; 2026 SMK MLBB School. Hak Cipta Dilindungi Undang-Undang.</p>
+                <p>Kurikulum Terintegrasi PBESI & Kemendikdasmen RI</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL DETAIL JURUSAN ==================== -->
+    <div id="jurusan-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="glass-card max-w-xl w-full rounded-3xl p-6 sm:p-8 border-mlbb-gold/40 relative animate-[fadeIn_0.2s_ease-out]">
+            <button onclick="closeJurusanModal()" aria-label="Tutup Modal" class="absolute top-5 right-5 w-9 h-9 rounded-xl bg-slate-800 hover:bg-red-500/20 hover:text-red-400 text-slate-300 flex items-center justify-center transition-colors cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="modal-badge" class="inline-block px-3 py-1 rounded-lg text-xs font-bold uppercase mb-3"></div>
+            <h3 id="modal-title" class="font-display font-extrabold text-2xl sm:text-3xl text-white mb-2"></h3>
+            <p id="modal-desc" class="text-sm text-slate-300 leading-relaxed mb-6"></p>
+
+            <div class="space-y-4 mb-6">
+                <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-mlbb-cyan mb-2.5 flex items-center gap-2">
+                        <i class="fa-solid fa-microchip"></i> Mata Pelajaran Produktif Utama
+                    </h4>
+                    <ul id="modal-mapel" class="space-y-1.5 text-sm text-slate-300"></ul>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-mlbb-gold mb-2.5 flex items-center gap-2">
+                        <i class="fa-solid fa-briefcase"></i> Prospek Karier Lulusan
+                    </h4>
+                    <div id="modal-karir" class="flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3">
+                <button onclick="closeJurusanModal()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold cursor-pointer">Tutup</button>
+                <a id="modal-daftar-btn" href="#ppdb" onclick="closeJurusanModal()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-mlbb-gold to-amber-600 text-mlbb-navy font-bold text-sm">
+                    Pilih Jurusan Ini
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT INTERAKTIF ==================== -->
+    <script>
+        // 1. Data Jurusan & Role Spesialisasi
+        const jurusanData = [
+            {
+                id: 'teknik-mekanik',
+                kode: 'TML',
+                badge: 'Jalur Pro Player • Side Lane',
+                badgeColor: 'bg-amber-500/20 text-mlbb-gold border border-amber-500/30',
+                icon: 'fa-khanda',
+                iconColor: 'text-mlbb-gold',
+                judul: 'Teknik Mekanik & Lane',
+                subjudul: 'Gold Lane & EXP Lane Mastery',
+                ringkasan: 'Fokus pada penguasaan mikro hero, manajemen wave minion, laning phase 1v1, dan eksekusi teamfight presisi tinggi.',
+                mapel: [
+                    'Kalkulasi Damage, Cooldown & Itemization Meta',
+                    'Manajemen Wave Minion (Freeze, Slow Push & Cutting)',
+                    'Refleks Motorik Halus & Positioning Teamfight',
+                    'Hero Pool Expansion & Counter-Matchup Laning'
+                ],
+                karir: ['Pro Player Gold/EXP Laner', 'Joki & Booster Resmi', 'Gaming Content Creator', 'Sparring Partner Tim Pro']
+            },
+            {
+                id: 'manajemen-makro',
+                kode: 'MMS',
+                badge: 'Jalur Pro Player • Core & IGL',
+                badgeColor: 'bg-cyan-500/20 text-mlbb-cyan border border-cyan-500/30',
+                icon: 'fa-chess-knight',
+                iconColor: 'text-mlbb-cyan',
+                judul: 'Manajemen Makro & Strategi',
+                subjudul: 'Jungler & Roamer Shotcalling',
+                ringkasan: 'Mencetak otak permainan (In-Game Leader) yang menguasai rotasi peta, kontrol objektif Turtle/Lord, dan psikologi komunikasi tim.',
+                mapel: [
+                    'Jungle Pathing, Retribution Timing & Objective Control',
+                    'In-Game Leadership (IGL) & Komunikasi Krisis',
+                    'Map Awareness, Vision Control & Rotasi Ganking',
+                    'Analisis Tempo Permainan (Early, Mid, Late Game)'
+                ],
+                karir: ['Pro Player Jungler/Roamer', 'In-Game Leader (IGL)', 'Asisten Pelatih Taktis', 'Esports Strategist']
+            },
+            {
+                id: 'analisis-drafting',
+                kode: 'ADD',
+                badge: 'Jalur Kepelatihan & Data',
+                badgeColor: 'bg-purple-500/20 text-purple-300 border border-purple-500/30',
+                icon: 'fa-chart-line',
+                iconColor: 'text-purple-400',
+                judul: 'Analisis Data & Drafting',
+                subjudul: 'Coach & Analyst Esports',
+                ringkasan: 'Mempelajari statistik pertandingan, simulasi ban & pick fase turnamen, serta bedah VOD lawan menggunakan perangkat lunak analitik.',
+                mapel: [
+                    'Teori Draft Pick, Synergy & Counter-Strategy',
+                    'Statistik Esports & Pengolahan Data Pertandingan',
+                    'Metodologi Review Replay (VOD Analysis)',
+                    'Psikologi Olahraga & Manajemen Mental Atlet'
+                ],
+                karir: ['Head Coach / Assistant Coach', 'Esports Data Analyst', 'Scouting Talent Manager', 'Konsultan Tim Turnamen']
+            },
+            {
+                id: 'broadcasting-caster',
+                kode: 'BRC',
+                badge: 'Jalur Media & Penyiaran',
+                badgeColor: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30',
+                icon: 'fa-microphone-lines',
+                iconColor: 'text-emerald-400',
+                judul: 'Broadcasting & Shoutcasting',
+                subjudul: 'Caster & Live Production',
+                ringkasan: 'Melatih kemampuan olah vokal play-by-play casting, pengoperasian OBS/vMix siaran turnamen, hingga produksi konten multimedia.',
+                mapel: [
+                    'Teknik Shoutcasting (Play-by-Play & Color Caster)',
+                    'Live Streaming Production (OBS, vMix & In-Game Observer)',
+                    'Public Speaking & Bahasa Inggris Esports',
+                    'Video Editing Highlight & Desain Grafis Overlay'
+                ],
+                karir: ['Official Esports Shoutcaster', 'In-Game Observer Turnamen', 'Broadcast Director', 'Host & Streamer Gaming']
+            },
+            {
+                id: 'manajemen-event',
+                kode: 'MET',
+                badge: 'Jalur Bisnis & Manajemen',
+                badgeColor: 'bg-rose-500/20 text-rose-300 border border-rose-500/30',
+                icon: 'fa-sitemap',
+                iconColor: 'text-rose-400',
+                judul: 'Manajemen Event & Tim Esports',
+                subjudul: 'Team Manager & Event Organizer',
+                ringkasan: 'Menguasai tata kelola organisasi tim profesional, penyusunan proposal sponsorship, regulasi turnamen, dan penyelenggaraan liga.',
+                mapel: [
+                    'Manajemen Operasional Gaming House & Jadwal Scrim',
+                    'Penyelenggaraan Turnamen (Tournament Admin & Regulasi)',
+                    'Sponsorship, Branding & Pemasaran Digital Esports',
+                    'Hukum Kontrak Atlet & Administrasi Bisnis'
+                ],
+                karir: ['Esports Team Manager', 'Tournament Organizer (EO)', 'Community Manager', 'Partnership & Brand Executive']
+            }
+        ];
+
+        // Render Kartu Jurusan
+        const jurusanGrid = document.getElementById('jurusan-grid');
+        jurusanData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer group hover:-translate-y-1';
+            card.onclick = () => openJurusanModal(index);
+            card.innerHTML = `
+                <div>
+                    <div class="flex items-center justify-between mb-5">
+                        <span class="px-3 py-1 rounded-lg text-[11px] font-bold uppercase ${item.badgeColor}">${item.badge}</span>
+                        <span class="font-mono text-xs font-bold text-slate-500 group-hover:text-mlbb-gold transition-colors">#${item.kode}</span>
+                    </div>
+                    <div class="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl ${item.iconColor} mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid ${item.icon}"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-2xl text-white group-hover:text-mlbb-gold transition-colors">${item.judul}</h3>
+                    <p class="text-xs font-semibold text-mlbb-cyan mb-3">${item.subjudul}</p>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-6">${item.ringkasan}</p>
+                </div>
+                <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-slate-300 group-hover:text-white">
+                    <span>Lihat Detail Kurikulum</span>
+                    <i class="fa-solid fa-arrow-right text-mlbb-gold group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            `;
+            jurusanGrid.appendChild(card);
+        });
+
+        // Fungsi Modal Jurusan
+        function openJurusanModal(index) {
+            const data = jurusanData[index];
+            document.getElementById('modal-badge').className = `inline-block px-3 py-1 rounded-lg text-xs font-bold uppercase mb-3 ${data.badgeColor}`;
+            document.getElementById('modal-badge').textContent = data.badge;
+            document.getElementById('modal-title').textContent = `${data.judul} (${data.subjudul})`;
+            document.getElementById('modal-desc').textContent = data.ringkasan;
+
+            const mapelList = document.getElementById('modal-mapel');
+            mapelList.innerHTML = data.mapel.map(m => `<li class="flex items-start gap-2"><i class="fa-solid fa-check text-mlbb-cyan mt-1 text-xs"></i><span>${m}</span></li>`).join('');
+
+            const karirList = document.getElementById('modal-karir');
+            karirList.innerHTML = data.karir.map(k => `<span class="px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-mlbb-gold text-xs font-semibold">${k}</span>`).join('');
+
+            // Otomatis pilih jurusan di form PPDB jika user klik "Pilih Jurusan Ini"
+            document.getElementById('modal-daftar-btn').onclick = () => {
+                const selectEl = document.getElementById('pilihanJurusan');
+                for (let opt of selectEl.options) {
+                    if (opt.value.includes(data.judul)) {
+                        selectEl.value = opt.value;
+                        break;
+                    }
+                }
+                closeJurusanModal();
+                showToast(`Jurusan "${data.judul}" dipilih pada formulir PPDB!`, 'info');
+            };
+
+            const modal = document.getElementById('jurusan-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeJurusanModal() {
+            const modal = document.getElementById('jurusan-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // 2. Data & Tab Kurikulum Harian
+        const scheduleData = {
+            akademik: [
+                {
+                    waktu: '07.00 - 08.30 WIB',
+                    sesi: 'Matematika & Logika Probabilitas',
+                    ikon: 'fa-calculator',
+                    warna: 'text-mlbb-cyan',
+                    deskripsi: 'Pembelajaran kurikulum nasional dengan studi kasus penghitungan statistik win-rate, kalkulasi physical/magic penetration, dan ekonomi gold.'
+                },
+                {
+                    waktu: '08.30 - 10.00 WIB',
+                    sesi: 'Bahasa Inggris Komunikasi Global',
+                    ikon: 'fa-language',
+                    warna: 'text-mlbb-gold',
+                    deskripsi: 'Fokus pada English for Esports: komunikasi in-game internasional, wawancara pasca-pertandingan, dan pemahaman patch notes global.'
+                },
+                {
+                    waktu: '10.15 - 11.45 WIB',
+                    sesi: 'Informatika, Jaringan & Dasar Pemrograman',
+                    ikon: 'fa-laptop-code',
+                    warna: 'text-mlbb-cyan',
+                    deskripsi: 'Memahami arsitektur server game, optimasi latensi jaringan, dasar desain UI/UX game, serta literasi keamanan siber.'
+                },
+                {
+                    waktu: '11.45 - 12.45 WIB',
+                    sesi: 'ISHOMA & Nutrisi Atlet',
+                    ikon: 'fa-utensils',
+                    warna: 'text-emerald-400',
+                    deskripsi: 'Istirahat, ibadah, dan makan siang terukur yang dirancang oleh ahli gizi untuk menjaga fokus kognitif sebelum sesi latihan sore.'
+                }
+            ],
+            esports: [
+                {
+                    waktu: '13.00 - 14.30 WIB',
+                    sesi: 'Drill Mekanik & Review Replay (VOD)',
+                    ikon: 'fa-magnifying-glass-chart',
+                    warna: 'text-mlbb-gold',
+                    deskripsi: 'Bedah rekaman pertandingan bersama Coach eks-MPL untuk mengevaluasi kesalahan rotasi, positioning, dan eksekusi setup Lord.'
+                },
+                {
+                    waktu: '14.30 - 16.30 WIB',
+                    sesi: 'Official Scrim 5v5 Antar Akademi',
+                    ikon: 'fa-gamepad',
+                    warna: 'text-mlbb-cyan',
+                    deskripsi: 'Simulasi pertandingan format turnamen (Draft Pick BO3) melawan tim akademi mitra nasional maupun regional Asia Tenggara.'
+                },
+                {
+                    waktu: '16.30 - 17.15 WIB',
+                    sesi: 'Kebugaran Fisik & Ergonomi Postur',
+                    ikon: 'fa-dumbbell',
+                    warna: 'text-emerald-400',
+                    deskripsi: 'Latihan kardio ringan, peregangan pergelangan tangan (pencegahan Carpal Tunnel), dan latihan ketahanan fokus mata.'
+                },
+                {
+                    waktu: '17.15 - 17.45 WIB',
+                    sesi: 'Evaluasi Harian & Journaling Mental',
+                    ikon: 'fa-brain',
+                    warna: 'text-purple-400',
+                    deskripsi: 'Sesi pendinginan bersama konselor sekolah untuk membangun sportivitas, pengendalian emosi (anti-tilt), dan target belajar esok hari.'
+                }
+            ]
+        };
+
+        function switchScheduleTab(type) {
+            const tabAkademik = document.getElementById('tab-akademik');
+            const tabEsports = document.getElementById('tab-esports');
+
+            if (type === 'akademik') {
+                tabAkademik.className = 'schedule-tab px-5 py-2.5 rounded-xl text-sm font-bold transition-all bg-mlbb-gold text-mlbb-navy shadow-md cursor-pointer';
+                tabEsports.className = 'schedule-tab px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-slate-300 hover:text-white cursor-pointer';
+            } else {
+                tabEsports.className = 'schedule-tab px-5 py-2.5 rounded-xl text-sm font-bold transition-all bg-mlbb-cyan text-mlbb-navy shadow-md cursor-pointer';
+                tabAkademik.className = 'schedule-tab px-5 py-2.5 rounded-xl text-sm font-bold transition-all text-slate-300 hover:text-white cursor-pointer';
+            }
+
+            const container = document.getElementById('schedule-content');
+            container.innerHTML = scheduleData[type].map(item => `
+                <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl ${item.warna} shrink-0">
+                        <i class="fa-solid ${item.ikon}"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-mono font-bold text-slate-400 block mb-1">${item.waktu}</span>
+                        <h3 class="font-display font-bold text-xl text-white mb-1.5">${item.sesi}</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">${item.deskripsi}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Inisialisasi Tab Jadwal Pertama Kali
+        switchScheduleTab('akademik');
+
+        // 3. Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // 4. Sistem Toast Notification Kustom
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const borderClass = type === 'error' ? 'border-red-500 text-red-200' : (type === 'info' ? 'border-mlbb-cyan text-cyan-100' : 'border-mlbb-gold text-amber-100');
+            const iconClass = type === 'error' ? 'fa-circle-exclamation text-red-400' : (type === 'info' ? 'fa-circle-info text-mlbb-cyan' : 'fa-circle-check text-mlbb-gold');
+
+            toast.className = `pointer-events-auto glass-card px-4 py-3.5 rounded-xl border ${borderClass} shadow-2xl flex items-center gap-3 text-sm font-medium transition-all duration-300`;
+            toast.innerHTML = `<i class="fa-solid ${iconClass} text-base"></i><span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // 5. Logika Formulir PPDB Online Interaktif & Generator Kartu Peserta
+        const ppdbForm = document.getElementById('ppdb-form');
+        ppdbForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('namaLengkap').value.trim();
+            const smp = document.getElementById('asalSmp').value.trim();
+            const nickname = document.getElementById('nickname').value.trim();
+            const idServer = document.getElementById('idServer').value.trim();
+            const rank = document.getElementById('rankTertinggi').value;
+            const role = document.getElementById('roleUtama').value;
+            const jurusan = document.getElementById('pilihanJurusan').value;
+
+            if (!nama || !smp || !nickname || !idServer || !rank || !role || !jurusan) {
+                showToast('Mohon lengkapi seluruh kolom formulir pendaftaran PPDB!', 'error');
+                return;
+            }
+
+            // Generate Nomor Registrasi Otomatis
+            const randomNum = Math.floor(1000 + Math.random() * 9000);
+            const regNo = `MLBB-26-${randomNum}`;
+
+            // Tentukan Jadwal Tes Trial Berdasarkan Role
+            const jadwalMap = {
+                'Roamer': 'Sabtu, 5 Desember 2026 • Pukul 13.00 WIB (Sesi Makro & IGL)',
+                'Jungler': 'Sabtu, 5 Desember 2026 • Pukul 14.30 WIB (Sesi Retribution & Rotasi)',
+                'Mid Laner': 'Minggu, 6 Desember 2026 • Pukul 10.00 WIB (Sesi Mage & Laning)',
+                'Gold Laner': 'Minggu, 6 Desember 2026 • Pukul 13.00 WIB (Sesi 1v1 & Positioning)',
+                'EXP Laner': 'Minggu, 6 Desember 2026 • Pukul 14.30 WIB (Sesi Laning & Teamfight)',
+                'Jalur Analyst / Caster / EO': 'Senin, 7 Desember 2026 • Pukul 10.00 WIB (Wawancara & Tes Bakat)'
+            };
+
+            // Isi Data ke Kartu Digital
+            document.getElementById('card-reg-no').textContent = regNo;
+            document.getElementById('card-nama').textContent = nama;
+            document.getElementById('card-smp').textContent = smp;
+            document.getElementById('card-role').textContent = role;
+            document.getElementById('card-ign').textContent = `${nickname} • ${idServer}`;
+            document.getElementById('card-rank').textContent = rank;
+            document.getElementById('card-jurusan').textContent = jurusan;
+            document.getElementById('card-jadwal').textContent = jadwalMap[role] || 'Sabtu, 5 Desember 2026 • Pukul 13.00 WIB';
+
+            // Tampilkan Kartu Peserta & Sembunyikan Placeholder
+            document.getElementById('card-placeholder').classList.add('hidden');
+            document.getElementById('digital-id-card').classList.remove('hidden');
+
+            showToast(`Pendaftaran berhasil! Nomor Registrasi: ${regNo}`, 'success');
+        });
+
+        // Tombol Salin Nomor Registrasi
+        document.getElementById('copy-reg-btn').addEventListener('click', function() {
+            const regText = document.getElementById('card-reg-no').textContent;
+            const tempInput = document.createElement('input');
+            tempInput.value = regText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(`Nomor registrasi ${regText} berhasil disalin!`, 'info');
+        });
+
+        function resetPpdbForm() {
+            ppdbForm.reset();
+            document.getElementById('digital-id-card').classList.add('hidden');
+            document.getElementById('card-placeholder').classList.remove('hidden');
+            showToast('Formulir PPDB telah direset.', 'info');
+        }
+    </script>
+</body>
+</html>
